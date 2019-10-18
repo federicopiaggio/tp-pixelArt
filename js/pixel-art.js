@@ -19,18 +19,16 @@ var nombreColores = ['White', 'LightYellow',
   'MediumPurple', 'Lavender', 'Gainsboro', 'LightGray', 'Silver', 'DarkGray', 'Gray',
   'DimGray', 'LightSlateGray', 'DarkSlateGray', 'Black'
 ];
-
+  
 // Variable para guardar el elemento 'color-personalizado'
 // Es decir, el que se elige con la rueda de color.
 var colorPersonalizado = document.getElementById('color-personalizado');
 
+
 colorPersonalizado.addEventListener('change', 
-  (function() {
-    // Se guarda el color de la rueda en colorActual
+  (function(){
     colorActual = colorPersonalizado.value;
-    // Completar para que cambie el indicador-de-color al colorActual
-
-
+    $('#indicador-de-color').css("background-color", colorActual);
   })
 );
 
@@ -57,3 +55,63 @@ function grillaDinamica(){
   }
 
 }
+
+
+$(document).ready(function(){
+    
+  var $colorActual = $("#indicador-de-color");
+  var $coloresPaleta = $(".color-paleta");
+  $($coloresPaleta).click(function(){
+    var $color = $(this).css("background-color");
+    $colorActual.css("background-color", $color);
+  });
+  
+
+
+  var $grilla = $("#grilla-pixeles").children();
+
+  function clickPintar(){
+      
+    $($grilla).click(function(){
+    var colorPintar = $colorActual.css("background-color");
+    $(this).css("background-color", colorPintar);
+  
+  });
+  }
+
+clickPintar();
+
+
+
+
+function mouseOver(){
+  
+var checkMouse = false;
+  $grilla.mouseup(function(){
+    checkMouse = false;
+   /*  console.log(checkMouse);
+    return checkMouse; */
+  });
+  
+    $grilla.mousedown(function(){
+    checkMouse = true;
+    /* console.log(checkMouse);
+    return checkMouse; */
+  });
+  $grilla.addEventListener("mouseover", function(event){
+        if(checkMouse){     
+        var colorPintar = $colorActual.css("background-color");
+        event.target.style.backgroundColor = colorPintar;
+        }
+  });
+}
+
+mouseOver();
+
+});
+
+
+
+
+grillaDinamica();
+paletaDinamica();
