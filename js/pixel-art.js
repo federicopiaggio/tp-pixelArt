@@ -23,6 +23,9 @@ var nombreColores = ['White', 'LightYellow',
 // Variable para guardar el elemento 'color-personalizado'
 // Es decir, el que se elige con la rueda de color.
 var colorPersonalizado = document.getElementById('color-personalizado');
+var grilla = document.getElementById("grilla-pixeles");
+var paleta = document.getElementById("paleta");
+var grillaPixel = document.getElementById("grilla-pixeles");
 
 
 colorPersonalizado.addEventListener('change', 
@@ -33,8 +36,6 @@ colorPersonalizado.addEventListener('change',
 );
 
 
-var paleta = document.getElementById("paleta");
-var grillaPixel = document.getElementById("grilla-pixeles");
 
 function paletaDinamica(){
   for (var i = 0; i < nombreColores.length; i++){
@@ -61,18 +62,24 @@ $(document).ready(function(){
     
   var $colorActual = $("#indicador-de-color");
   var $coloresPaleta = $(".color-paleta");
-  $($coloresPaleta).click(function(){
-    var $color = $(this).css("background-color");
-    $colorActual.css("background-color", $color);
-  });
+  var $pixelClick = $("#grilla-pixeles").children();
+  var $botonBorrar = $("#borrar");
+  var $batman = $("#batman");
+  var $wonder = $("#wonder");
+  var $flash = $("#flash");
+  var $invisible = $("#invisible");
+  var $guardar = $("#guardar");
+
+    $($coloresPaleta).click(function(){
+        var $color = $(this).css("background-color");
+        $colorActual.css("background-color", $color);
+    });
   
 
 
-  var $grilla = $("#grilla-pixeles").children();
-
   function clickPintar(){
       
-    $($grilla).click(function(){
+    $($pixelClick).click(function(){
     var colorPintar = $colorActual.css("background-color");
     $(this).css("background-color", colorPintar);
   
@@ -84,32 +91,62 @@ clickPintar();
 
 
 
-function mouseOver(){
+function pintarMov(){
   
 var checkMouse = false;
-  $grilla.mouseup(function(){
+  $pixelClick.mouseup(function(){
     checkMouse = false;
    /*  console.log(checkMouse);
     return checkMouse; */
   });
   
-    $grilla.mousedown(function(){
+    $pixelClick.mousedown(function(){
     checkMouse = true;
     /* console.log(checkMouse);
     return checkMouse; */
   });
-  $grilla.addEventListener("mouseover", function(event){
+
+  grilla.addEventListener("mouseover", function(event){
         if(checkMouse){     
-        var colorPintar = $colorActual.css("background-color");
-        event.target.style.backgroundColor = colorPintar;
+          var $indicadorColor = $('#indicador-de-color').css("background-color");
+          event.target.style.backgroundColor = $indicadorColor;
         }
   });
 }
 
-mouseOver();
+pintarMov();
+
+
+$botonBorrar.click(function(){
+
+  $pixelClick.animate({"background-color" : "FFFFFF"},1000);
+});
+
+$batman.click(function(){
+  cargarSuperheroe(batman);
+});
+
+$wonder.click(function(){
+  cargarSuperheroe(wonder);
+});
+
+$flash.click(function(){
+  cargarSuperheroe(flash);
+});
+
+
+$invisible.click(function(){
+  cargarSuperheroe(invisible);
+});
+
+$guardar.click(function(){
+  guardarPixelArt();
 
 });
 
+
+
+});
 
 
 
